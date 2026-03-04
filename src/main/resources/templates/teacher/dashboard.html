@@ -23,22 +23,53 @@
 <main class="section">
     <div class="wrap">
         <div class="section-head">
-            <h2>Teacher Dashboard</h2>
-            <p>Track classes, student progress and upcoming activities.</p>
+            <h2 th:text="'Welcome, ' + ${teacher.fullName}">Teacher Dashboard</h2>
+            <p>Your salary details are private and visible only to you and admin.</p>
         </div>
 
         <div class="stats-grid">
-            <article class="stat-card"><h3>6</h3><p>Classes Today</p></article>
-            <article class="stat-card"><h3>142</h3><p>Total Students</p></article>
-            <article class="stat-card"><h3>18</h3><p>Pending Evaluations</p></article>
-            <article class="stat-card"><h3>4</h3><p>Meetings This Week</p></article>
+            <article class="stat-card">
+                <h3 th:text="${teacher.salaryPerMonth}">0</h3>
+                <p>Salary Per Month</p>
+            </article>
+            <article class="stat-card">
+                <h3 th:text="${teacher.salaryPaid}">0</h3>
+                <p>Total Salary Paid</p>
+            </article>
+            <article class="stat-card">
+                <h3 th:text="${teacher.joiningDate}">2026-01-01</h3>
+                <p>Joining Date</p>
+            </article>
+            <article class="stat-card email-card">
+                <h3 class="email-value" th:text="${teacher.email}" th:title="${teacher.email}">teacher@school.com</h3>
+                <p>Email</p>
+            </article>
         </div>
 
-        <div class="card-grid">
-            <article class="feature-card"><h3>Lesson Planner</h3><p>Manage weekly lessons and classroom activities.</p></article>
-            <article class="feature-card"><h3>Assessments</h3><p>Upload marks and monitor student progress.</p></article>
-            <article class="feature-card"><h3>Communication</h3><p>Connect with parents and school administration.</p></article>
-        </div>
+        <section class="table-section">
+            <h3>Last Salary Payments</h3>
+            <div class="data-table-wrap">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount Paid</th>
+                        <th>Note</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${#lists.isEmpty(teacher.lastSalaryPayments)}">
+                        <td colspan="3">No salary payments recorded yet.</td>
+                    </tr>
+                    <tr th:each="payment : ${teacher.lastSalaryPayments}">
+                        <td th:text="${payment.paidOn}">2026-03-01</td>
+                        <td th:text="${payment.amountPaid}">0</td>
+                        <td th:text="${payment.note}">-</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </div>
 </main>
 </body>

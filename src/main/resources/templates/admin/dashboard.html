@@ -24,21 +24,83 @@
     <div class="wrap">
         <div class="section-head">
             <h2>Administrator Dashboard</h2>
-            <p>Manage school operations and monitor platform activity.</p>
+            <p>Admin can view all student fee and teacher salary details.</p>
         </div>
 
         <div class="stats-grid">
-            <article class="stat-card"><h3>3120</h3><p>Total Students</p></article>
-            <article class="stat-card"><h3>184</h3><p>Teachers</p></article>
-            <article class="stat-card"><h3>95%</h3><p>Attendance</p></article>
-            <article class="stat-card"><h3>27</h3><p>Open Requests</p></article>
+            <article class="stat-card"><h3 th:text="${#lists.size(students)}">0</h3><p>Total Students</p></article>
+            <article class="stat-card"><h3 th:text="${#lists.size(teachers)}">0</h3><p>Total Teachers</p></article>
+            <article class="stat-card"><h3 th:text="${#lists.size(students) + #lists.size(teachers)}">0</h3><p>Total Managed Users</p></article>
+            <article class="stat-card"><h3>ADMIN</h3><p>Access Level</p></article>
         </div>
 
-        <div class="card-grid">
-            <article class="feature-card"><h3>User Management</h3><p>Create, update and monitor student and teacher accounts.</p></article>
-            <article class="feature-card"><h3>Academic Calendar</h3><p>Publish events, exam schedules and circulars.</p></article>
-            <article class="feature-card"><h3>Reports</h3><p>View summary insights on admissions and outcomes.</p></article>
-        </div>
+        <section class="table-section">
+            <h3>All Students</h3>
+            <div class="data-table-wrap">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Joining Date</th>
+                        <th>Class</th>
+                        <th>Fee/Month</th>
+                        <th>Fee Remaining</th>
+                        <th>Bus/Month</th>
+                        <th>Bus/Year</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${#lists.isEmpty(students)}">
+                        <td colspan="9">No student records found.</td>
+                    </tr>
+                    <tr th:each="student : ${students}">
+                        <td th:text="${student.userId}">1</td>
+                        <td th:text="${student.fullName}">Name</td>
+                        <td th:text="${student.email}">email</td>
+                        <td th:text="${student.joiningDate}">2026-01-01</td>
+                        <td th:text="${student.schoolClass}">CLASS_1</td>
+                        <td th:text="${student.feePerMonth}">0</td>
+                        <td th:text="${student.feeRemaining}">0</td>
+                        <td th:text="${student.busFeePerMonth}">0</td>
+                        <td th:text="${student.busFeeYearly}">0</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="table-section">
+            <h3>All Teachers</h3>
+            <div class="data-table-wrap">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Joining Date</th>
+                        <th>Salary/Month</th>
+                        <th>Total Salary Paid</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${#lists.isEmpty(teachers)}">
+                        <td colspan="6">No teacher records found.</td>
+                    </tr>
+                    <tr th:each="teacher : ${teachers}">
+                        <td th:text="${teacher.userId}">1</td>
+                        <td th:text="${teacher.fullName}">Name</td>
+                        <td th:text="${teacher.email}">email</td>
+                        <td th:text="${teacher.joiningDate}">2026-01-01</td>
+                        <td th:text="${teacher.salaryPerMonth}">0</td>
+                        <td th:text="${teacher.salaryPaid}">0</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </div>
 </main>
 </body>

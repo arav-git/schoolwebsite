@@ -23,22 +23,75 @@
 <main class="section">
     <div class="wrap">
         <div class="section-head">
-            <h2>Student Dashboard</h2>
-            <p>View classes, assignments and your academic updates.</p>
+            <h2 th:text="'Welcome, ' + ${student.fullName}">Student Dashboard</h2>
+            <p>Your data is private and visible only to you and admin.</p>
         </div>
 
         <div class="stats-grid">
-            <article class="stat-card"><h3>88%</h3><p>Current Attendance</p></article>
-            <article class="stat-card"><h3>5</h3><p>Assignments Due</p></article>
-            <article class="stat-card"><h3>3</h3><p>Upcoming Tests</p></article>
-            <article class="stat-card"><h3>12</h3><p>New Announcements</p></article>
+            <article class="stat-card">
+                <h3 th:text="${student.schoolClass}">CLASS_1</h3>
+                <p>Current Class</p>
+            </article>
+            <article class="stat-card">
+                <h3 th:text="${student.feePerMonth}">0</h3>
+                <p>Fee Per Month</p>
+            </article>
+            <article class="stat-card">
+                <h3 th:text="${student.feeRemaining}">0</h3>
+                <p>Fee Remaining</p>
+            </article>
+            <article class="stat-card">
+                <h3 th:text="${student.joiningDate}">2026-01-01</h3>
+                <p>Joining Date</p>
+            </article>
         </div>
 
-        <div class="card-grid">
-            <article class="feature-card"><h3>Class Schedule</h3><p>Check your weekly timetable and room details.</p></article>
-            <article class="feature-card"><h3>Homework Board</h3><p>Track pending assignments and deadlines.</p></article>
-            <article class="feature-card"><h3>Performance</h3><p>See your results and teacher feedback.</p></article>
-        </div>
+        <section class="table-section">
+            <h3>Fee and Transport Details</h3>
+            <div class="data-table-wrap">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Bus Fee / Month</th>
+                        <th>Bus Fee / Year</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${student.email}">student@school.com</td>
+                        <td th:text="${student.busFeePerMonth}">0</td>
+                        <td th:text="${student.busFeeYearly}">0</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="table-section">
+            <h3>Last Fee Payments</h3>
+            <div class="data-table-wrap">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount Paid</th>
+                        <th>Note</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${#lists.isEmpty(student.lastFeePayments)}">
+                        <td colspan="3">No fee payments recorded yet.</td>
+                    </tr>
+                    <tr th:each="payment : ${student.lastFeePayments}">
+                        <td th:text="${payment.paidOn}">2026-03-01</td>
+                        <td th:text="${payment.amountPaid}">0</td>
+                        <td th:text="${payment.note}">-</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </div>
 </main>
 </body>

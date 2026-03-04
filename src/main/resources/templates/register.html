@@ -48,6 +48,15 @@
             </select>
             <p class="error" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></p>
 
+            <div id="schoolClassBlock">
+                <label for="schoolClass">Class (Student only)</label>
+                <select id="schoolClass" th:field="*{schoolClass}">
+                    <option value="">Select class</option>
+                    <option th:each="schoolClass : ${classes}" th:value="${schoolClass}" th:text="${schoolClass}"></option>
+                </select>
+                <p class="error" th:if="${#fields.hasErrors('schoolClass')}" th:errors="*{schoolClass}"></p>
+            </div>
+
             <button type="submit" class="btn">Create Account</button>
         </form>
 
@@ -57,5 +66,21 @@
         </div>
     </section>
 </main>
+<script>
+    const roleSelect = document.getElementById('role');
+    const classBlock = document.getElementById('schoolClassBlock');
+    const classSelect = document.getElementById('schoolClass');
+
+    function toggleClassField() {
+        const isStudent = roleSelect.value === 'STUDENT';
+        classBlock.style.display = isStudent ? 'block' : 'none';
+        if (!isStudent) {
+            classSelect.value = '';
+        }
+    }
+
+    roleSelect.addEventListener('change', toggleClassField);
+    toggleClassField();
+</script>
 </body>
 </html>

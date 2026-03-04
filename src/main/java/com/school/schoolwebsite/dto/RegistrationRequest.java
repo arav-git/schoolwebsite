@@ -1,6 +1,7 @@
 package com.school.schoolwebsite.dto;
 
 import com.school.schoolwebsite.entity.Role;
+import com.school.schoolwebsite.entity.SchoolClass;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,6 +22,8 @@ public class RegistrationRequest {
 
     @NotNull(message = "Role is required")
     private Role role;
+
+    private SchoolClass schoolClass;
 
     public String getFullName() {
         return fullName;
@@ -52,5 +55,13 @@ public class RegistrationRequest {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public SchoolClass getSchoolClass() {
+        return schoolClass;
+    }
+
+    public void setSchoolClass(SchoolClass schoolClass) {
+        this.schoolClass = schoolClass;
     }
 }

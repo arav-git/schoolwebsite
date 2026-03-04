@@ -2,6 +2,7 @@ package com.school.schoolwebsite.controller;
 
 import com.school.schoolwebsite.dto.RegistrationRequest;
 import com.school.schoolwebsite.entity.Role;
+import com.school.schoolwebsite.entity.SchoolClass;
 import com.school.schoolwebsite.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ public class AuthController {
     public String showRegisterPage(Model model) {
         model.addAttribute("request", new RegistrationRequest());
         model.addAttribute("roles", new Role[]{Role.STUDENT, Role.TEACHER});
+        model.addAttribute("classes", SchoolClass.values());
         return "register";
     }
 
@@ -34,6 +36,7 @@ public class AuthController {
         Model model
     ) {
         model.addAttribute("roles", new Role[]{Role.STUDENT, Role.TEACHER});
+        model.addAttribute("classes", SchoolClass.values());
 
         if (bindingResult.hasErrors()) {
             return "register";
