@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Website - About</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="site-body">
+<header class="topbar">
+    <div class="wrap topbar-inner">
+        <a class="brand" th:href="@{/}">
+            <span class="brand-mark">SW</span>
+            <span class="brand-text">School Website</span>
+        </a>
+        <nav class="menu">
+            <a th:href="@{/}">Home</a>
+            <a class="active" th:href="@{/about}">About</a>
+            <a th:href="@{/register}">Registration</a>
+            <a class="btn btn-small" th:href="@{/login}">Login</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="sub-hero">
+        <div class="wrap">
+            <p class="eyebrow">Who We Are</p>
+            <h1>A Progressive School Community</h1>
+            <p>We combine values, academic rigor and innovation so every child grows with purpose.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="wrap split-grid">
+            <article class="panel">
+                <h3>Our Mission</h3>
+                <p>To nurture curious, compassionate and confident learners prepared for a rapidly changing world.</p>
+            </article>
+            <article class="panel">
+                <h3>Our Vision</h3>
+                <p>To be a benchmark institution for holistic education, leadership and responsible citizenship.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="section section-tint">
+        <div class="wrap">
+            <div class="section-head">
+                <h2>What Makes Us Different</h2>
+                <p>Student-centered systems built around growth, care and outcomes.</p>
+            </div>
+            <div class="card-grid">
+                <article class="feature-card">
+                    <h3>Personal Mentoring</h3>
+                    <p>Dedicated mentors support each learner's academic and emotional journey.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Digital Classrooms</h3>
+                    <p>Interactive learning with modern tools, labs and collaborative projects.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Future Skills</h3>
+                    <p>Communication, critical thinking and leadership integrated into curriculum.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="wrap footer-inner">
+        <p>Admissions Helpdesk: +91-99999-99999</p>
+        <a th:href="@{/register}">Register Online</a>
+    </div>
+</footer>
+</body>
+</html>

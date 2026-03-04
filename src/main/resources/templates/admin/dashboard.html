@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="site-body">
+<header class="topbar">
+    <div class="wrap topbar-inner">
+        <a class="brand" th:href="@{/}">
+            <span class="brand-mark">SW</span>
+            <span class="brand-text">Admin Portal</span>
+        </a>
+        <form th:action="@{/logout}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button type="submit" class="btn btn-small">Logout</button>
+        </form>
+    </div>
+</header>
+
+<main class="section">
+    <div class="wrap">
+        <div class="section-head">
+            <h2>Administrator Dashboard</h2>
+            <p>Manage school operations and monitor platform activity.</p>
+        </div>
+
+        <div class="stats-grid">
+            <article class="stat-card"><h3>3120</h3><p>Total Students</p></article>
+            <article class="stat-card"><h3>184</h3><p>Teachers</p></article>
+            <article class="stat-card"><h3>95%</h3><p>Attendance</p></article>
+            <article class="stat-card"><h3>27</h3><p>Open Requests</p></article>
+        </div>
+
+        <div class="card-grid">
+            <article class="feature-card"><h3>User Management</h3><p>Create, update and monitor student and teacher accounts.</p></article>
+            <article class="feature-card"><h3>Academic Calendar</h3><p>Publish events, exam schedules and circulars.</p></article>
+            <article class="feature-card"><h3>Reports</h3><p>View summary insights on admissions and outcomes.</p></article>
+        </div>
+    </div>
+</main>
+</body>
+</html>

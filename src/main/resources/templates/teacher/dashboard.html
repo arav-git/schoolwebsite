@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="site-body">
+<header class="topbar">
+    <div class="wrap topbar-inner">
+        <a class="brand" th:href="@{/}">
+            <span class="brand-mark">SW</span>
+            <span class="brand-text">Teacher Portal</span>
+        </a>
+        <form th:action="@{/logout}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button type="submit" class="btn btn-small">Logout</button>
+        </form>
+    </div>
+</header>
+
+<main class="section">
+    <div class="wrap">
+        <div class="section-head">
+            <h2>Teacher Dashboard</h2>
+            <p>Track classes, student progress and upcoming activities.</p>
+        </div>
+
+        <div class="stats-grid">
+            <article class="stat-card"><h3>6</h3><p>Classes Today</p></article>
+            <article class="stat-card"><h3>142</h3><p>Total Students</p></article>
+            <article class="stat-card"><h3>18</h3><p>Pending Evaluations</p></article>
+            <article class="stat-card"><h3>4</h3><p>Meetings This Week</p></article>
+        </div>
+
+        <div class="card-grid">
+            <article class="feature-card"><h3>Lesson Planner</h3><p>Manage weekly lessons and classroom activities.</p></article>
+            <article class="feature-card"><h3>Assessments</h3><p>Upload marks and monitor student progress.</p></article>
+            <article class="feature-card"><h3>Communication</h3><p>Connect with parents and school administration.</p></article>
+        </div>
+    </div>
+</main>
+</body>
+</html>

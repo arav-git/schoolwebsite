@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - School Website</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-body">
+<main class="auth-layout">
+    <section class="auth-promo">
+        <p class="eyebrow">Admissions Portal</p>
+        <h1>Join Our School Community</h1>
+        <p>Register as a student or teacher and get access to your personalized dashboard.</p>
+        <ul>
+            <li>Fast online registration</li>
+            <li>Secure profile and login</li>
+            <li>Role-based portal access</li>
+        </ul>
+        <a class="btn btn-light" th:href="@{/about}">Learn More</a>
+    </section>
+
+    <section class="auth-panel">
+        <h2>Create Account</h2>
+
+        <p class="success" th:if="${param.registered}">Registration successful. Please login.</p>
+        <p class="error" th:if="${registrationError}" th:text="${registrationError}"></p>
+
+        <form th:action="@{/register}" th:object="${request}" method="post" class="auth-form">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+            <label for="fullName">Full Name</label>
+            <input id="fullName" type="text" th:field="*{fullName}" placeholder="Enter full name">
+            <p class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></p>
+
+            <label for="email">Email</label>
+            <input id="email" type="email" th:field="*{email}" placeholder="Enter email">
+            <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+
+            <label for="password">Password</label>
+            <input id="password" type="password" th:field="*{password}" placeholder="Enter password">
+            <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+
+            <label for="role">Register As</label>
+            <select id="role" th:field="*{role}">
+                <option value="">Select role</option>
+                <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+            </select>
+            <p class="error" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></p>
+
+            <button type="submit" class="btn">Create Account</button>
+        </form>
+
+        <div class="auth-links">
+            <a th:href="@{/}">Back to Home</a>
+            <a th:href="@{/login}">Already registered? Login</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>

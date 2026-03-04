@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Website - Home</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="site-body">
+<header class="topbar">
+    <div class="wrap topbar-inner">
+        <a class="brand" th:href="@{/}">
+            <span class="brand-mark">SW</span>
+            <span class="brand-text">School Website</span>
+        </a>
+        <nav class="menu">
+            <a class="active" th:href="@{/}">Home</a>
+            <a th:href="@{/about}">About</a>
+            <a th:href="@{/register}">Registration</a>
+            <a class="btn btn-small" th:href="@{/login}">Login</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="wrap hero-grid">
+            <div>
+                <p class="eyebrow">Academic Excellence Since 2001</p>
+                <h1 class="hero-title">Learning Today, Leading Tomorrow</h1>
+                <p class="hero-text">A future-ready campus for students with strong academics, sports, innovation labs and leadership opportunities.</p>
+                <div class="hero-actions">
+                    <a class="btn" th:href="@{/register}">Apply Now</a>
+                    <a class="btn btn-light" th:href="@{/about}">Explore Campus</a>
+                </div>
+            </div>
+            <aside class="hero-card">
+                <h3>Admissions Open 2026-27</h3>
+                <p>Registrations for Pre-Primary to XII are now open.</p>
+                <ul>
+                    <li>Smart classrooms and STEM labs</li>
+                    <li>Experienced faculty and mentoring</li>
+                    <li>Balanced academics and co-curriculars</li>
+                </ul>
+                <a class="btn btn-small" th:href="@{/register}">Start Registration</a>
+            </aside>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="wrap stats-grid">
+            <article class="stat-card">
+                <h3>3200+</h3>
+                <p>Students</p>
+            </article>
+            <article class="stat-card">
+                <h3>180+</h3>
+                <p>Faculty Members</p>
+            </article>
+            <article class="stat-card">
+                <h3>98%</h3>
+                <p>Board Results</p>
+            </article>
+            <article class="stat-card">
+                <h3>40+</h3>
+                <p>Clubs & Societies</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="wrap">
+            <div class="section-head">
+                <h2>Signature Programs</h2>
+                <p>Designed to help every learner discover strengths and build confidence.</p>
+            </div>
+            <div class="card-grid">
+                <article class="feature-card">
+                    <h3>STEM & Innovation</h3>
+                    <p>Hands-on robotics, AI basics and project-based science learning.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Arts & Performance</h3>
+                    <p>Music, visual arts and theater for creativity and expression.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Sports Academy</h3>
+                    <p>Professional coaching and modern facilities for multiple sports.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-tint">
+        <div class="wrap news-grid">
+            <article class="news-card">
+                <p class="news-date">March 12, 2026</p>
+                <h3>Inter-School Science Summit</h3>
+                <p>Students showcased sustainable city models and won district-level honors.</p>
+            </article>
+            <article class="news-card">
+                <p class="news-date">March 18, 2026</p>
+                <h3>Annual Sports Meet</h3>
+                <p>A week of track events, team competitions and parent participation.</p>
+            </article>
+            <article class="news-card">
+                <p class="news-date">April 3, 2026</p>
+                <h3>Parent Orientation</h3>
+                <p>Meet school leaders and understand curriculum pathways for every grade.</p>
+            </article>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="wrap footer-inner">
+        <p>School Website • Excellence in education</p>
+        <a th:href="@{/login}">Portal Login</a>
+    </div>
+</footer>
+</body>
+</html>

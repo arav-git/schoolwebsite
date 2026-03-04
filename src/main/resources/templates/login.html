@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - School Website</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-body">
+<main class="auth-layout">
+    <section class="auth-promo">
+        <p class="eyebrow">Welcome Back</p>
+        <h1>School Portal Login</h1>
+        <p>Login to continue to your dashboard as admin, teacher, or student.</p>
+        <ul>
+            <li>Secure role-based access</li>
+            <li>Centralized school portal</li>
+            <li>Anytime, anywhere login</li>
+        </ul>
+        <a class="btn btn-light" th:href="@{/register}">Create Account</a>
+    </section>
+
+    <section class="auth-panel">
+        <h2>Sign In</h2>
+
+        <p class="success" th:if="${param.registered}">Account created. Login now.</p>
+        <p class="success" th:if="${param.logout}">You have logged out successfully.</p>
+        <p class="error" th:if="${param.error}">Invalid email or password.</p>
+
+        <form th:action="@{/login}" method="post" class="auth-form">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+            <label for="username">Email</label>
+            <input id="username" name="username" type="email" placeholder="Enter email" required>
+
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" placeholder="Enter password" required>
+
+            <button type="submit" class="btn">Login</button>
+        </form>
+
+        <div class="auth-links">
+            <a th:href="@{/}">Back to Home</a>
+            <a th:href="@{/register}">Need account? Register</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>

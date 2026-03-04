@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="site-body">
+<header class="topbar">
+    <div class="wrap topbar-inner">
+        <a class="brand" th:href="@{/}">
+            <span class="brand-mark">SW</span>
+            <span class="brand-text">Student Portal</span>
+        </a>
+        <form th:action="@{/logout}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button type="submit" class="btn btn-small">Logout</button>
+        </form>
+    </div>
+</header>
+
+<main class="section">
+    <div class="wrap">
+        <div class="section-head">
+            <h2>Student Dashboard</h2>
+            <p>View classes, assignments and your academic updates.</p>
+        </div>
+
+        <div class="stats-grid">
+            <article class="stat-card"><h3>88%</h3><p>Current Attendance</p></article>
+            <article class="stat-card"><h3>5</h3><p>Assignments Due</p></article>
+            <article class="stat-card"><h3>3</h3><p>Upcoming Tests</p></article>
+            <article class="stat-card"><h3>12</h3><p>New Announcements</p></article>
+        </div>
+
+        <div class="card-grid">
+            <article class="feature-card"><h3>Class Schedule</h3><p>Check your weekly timetable and room details.</p></article>
+            <article class="feature-card"><h3>Homework Board</h3><p>Track pending assignments and deadlines.</p></article>
+            <article class="feature-card"><h3>Performance</h3><p>See your results and teacher feedback.</p></article>
+        </div>
+    </div>
+</main>
+</body>
+</html>
