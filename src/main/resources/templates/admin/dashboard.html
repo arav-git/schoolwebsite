@@ -9,7 +9,7 @@
 <body class="site-body">
 <header class="topbar">
     <div class="wrap topbar-inner">
-        <a class="brand" th:href="@{/}">
+        <a class="brand" th:href="@{/portal}">
             <span class="brand-mark">SW</span>
             <span class="brand-text">Admin Portal</span>
         </a>
@@ -25,6 +25,12 @@
         <div class="section-head">
             <h2>Administrator Dashboard</h2>
             <p>Admin can view all student fee and teacher salary details.</p>
+            <div>
+                <a class="btn btn-small" th:href="@{/admin/students/manage}">Manage Students</a>
+                <a class="btn btn-small" th:href="@{/admin/promotions}">Bulk Promotion</a>
+            </div>
+            <p class="success" th:if="${param.studentUpdated}">Student details updated successfully.</p>
+            <p class="success" th:if="${param.teacherUpdated}">Teacher details updated successfully.</p>
         </div>
 
         <div class="stats-grid">
@@ -49,11 +55,12 @@
                         <th>Fee Remaining</th>
                         <th>Bus/Month</th>
                         <th>Bus/Year</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:if="${#lists.isEmpty(students)}">
-                        <td colspan="9">No student records found.</td>
+                        <td colspan="10">No student records found.</td>
                     </tr>
                     <tr th:each="student : ${students}">
                         <td th:text="${student.userId}">1</td>
@@ -65,6 +72,9 @@
                         <td th:text="${student.feeRemaining}">0</td>
                         <td th:text="${student.busFeePerMonth}">0</td>
                         <td th:text="${student.busFeeYearly}">0</td>
+                        <td>
+                            <a class="btn btn-small" th:href="@{/admin/students/{id}/edit(id=${student.userId})}">Edit</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -83,11 +93,12 @@
                         <th>Joining Date</th>
                         <th>Salary/Month</th>
                         <th>Total Salary Paid</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:if="${#lists.isEmpty(teachers)}">
-                        <td colspan="6">No teacher records found.</td>
+                        <td colspan="7">No teacher records found.</td>
                     </tr>
                     <tr th:each="teacher : ${teachers}">
                         <td th:text="${teacher.userId}">1</td>
@@ -96,6 +107,9 @@
                         <td th:text="${teacher.joiningDate}">2026-01-01</td>
                         <td th:text="${teacher.salaryPerMonth}">0</td>
                         <td th:text="${teacher.salaryPaid}">0</td>
+                        <td>
+                            <a class="btn btn-small" th:href="@{/admin/teachers/{id}/edit(id=${teacher.userId})}">Edit</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

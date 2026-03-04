@@ -15,7 +15,6 @@ import java.time.LocalDate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.beans.factory.annotation.Value;
 
 @Service
 public class UserService {
@@ -25,22 +24,19 @@ public class UserService {
     private final TeacherProfileRepository teacherProfileRepository;
     private final ClassFeeStructureRepository classFeeStructureRepository;
     private final PasswordEncoder passwordEncoder;
-    private final BigDecimal defaultTeacherSalary;
 
     public UserService(
         UserRepository userRepository,
         StudentProfileRepository studentProfileRepository,
         TeacherProfileRepository teacherProfileRepository,
         ClassFeeStructureRepository classFeeStructureRepository,
-        PasswordEncoder passwordEncoder,
-        @Value("${app.teacher.default-salary:30000}") BigDecimal defaultTeacherSalary
+        PasswordEncoder passwordEncoder
     ) {
         this.userRepository = userRepository;
         this.studentProfileRepository = studentProfileRepository;
         this.teacherProfileRepository = teacherProfileRepository;
         this.classFeeStructureRepository = classFeeStructureRepository;
         this.passwordEncoder = passwordEncoder;
-        this.defaultTeacherSalary = defaultTeacherSalary;
     }
 
     @Transactional
@@ -86,7 +82,7 @@ public class UserService {
 
         TeacherProfile teacherProfile = new TeacherProfile();
         teacherProfile.setUser(user);
-        teacherProfile.setSalaryPerMonth(defaultTeacherSalary);
+        teacherProfile.setSalaryPerMonth(BigDecimal.ZERO);
         teacherProfile.setSalaryPaid(BigDecimal.ZERO);
         teacherProfileRepository.save(teacherProfile);
     }

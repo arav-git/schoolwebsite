@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Promotions</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="site-body">
+<header class="topbar">
+    <div class="wrap topbar-inner">
+        <a class="brand" th:href="@{/portal}">
+            <span class="brand-mark">SW</span>
+            <span class="brand-text">Admin Portal</span>
+        </a>
+        <div class="menu">
+            <a th:href="@{/admin/dashboard}">Dashboard</a>
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="btn btn-small">Logout</button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<main class="section">
+    <div class="wrap">
+        <div class="section-head">
+            <h2>Bulk Promotion Workflow</h2>
+            <p>Select students and promote to next class for the academic year. Only students with PASS status are promoted.</p>
+            <p class="success" th:if="${param.promotedCount}">
+                Promotion completed. Students promoted: <span th:text="${param.promotedCount}">0</span>
+            </p>
+        </div>
+
+        <form method="post" th:action="@{/admin/promotions}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+            <div class="auth-form" style="max-width: 320px; margin-bottom: 18px;">
+                <label for="academicYear">Academic Year</label>
+                <input id="academicYear" name="academicYear" type="text" th:value="${academicYear}" required>
+            </div>
+
+            <section class="table-section">
+                <div class="data-table-wrap">
+                    <table class="data-table">
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox" id="selectAll"></th>
+                            <th>User ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Current Class</th>
+                            <th>Next Class</th>
+                            <th>Exam Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${#lists.isEmpty(candidates)}">
+                            <td colspan="7">No promotable students found.</td>
+                        </tr>
+                        <tr th:each="student : ${candidates}">
+                            <td>
+                                <input type="checkbox" name="studentUserIds" th:value="${student.userId}" th:disabled="${student.examStatus.name() != 'PASS'}">
+                            </td>
+                            <td th:text="${student.userId}">1</td>
+                            <td th:text="${student.fullName}">Name</td>
+                            <td th:text="${student.email}">email</td>
+                            <td th:text="${student.currentClass}">CLASS_1</td>
+                            <td th:text="${student.nextClass}">CLASS_2</td>
+                            <td th:text="${student.examStatus}">PENDING</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div style="margin-top: 16px; display: flex; gap: 10px;">
+                <button class="btn" type="submit">Promote Selected</button>
+                <a class="btn btn-light" th:href="@{/admin/dashboard}">Back</a>
+            </div>
+        </form>
+    </div>
+</main>
+
+<script>
+    const selectAll = document.getElementById('selectAll');
+    if (selectAll) {
+        selectAll.addEventListener('change', function () {
+            document.querySelectorAll('input[name="studentUserIds"]').forEach(function (checkbox) {
+                checkbox.checked = selectAll.checked;
+            });
+        });
+    }
+</script>
+</body>
+</html>

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface TeacherProfileRepository extends JpaRepository<TeacherProfile, Long> {
 
     Optional<TeacherProfile> findByUserEmail(String email);
+    Optional<TeacherProfile> findByUserId(Long userId);
 
     List<TeacherProfile> findAllByOrderByIdDesc();
 }

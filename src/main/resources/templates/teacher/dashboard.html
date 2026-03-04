@@ -9,7 +9,7 @@
 <body class="site-body">
 <header class="topbar">
     <div class="wrap topbar-inner">
-        <a class="brand" th:href="@{/}">
+        <a class="brand" th:href="@{/portal}">
             <span class="brand-mark">SW</span>
             <span class="brand-text">Teacher Portal</span>
         </a>
@@ -47,6 +47,9 @@
         </div>
 
         <section class="table-section">
+            <div style="margin-bottom: 12px;">
+                <a class="btn btn-small" th:href="@{/teacher/students/manage}">Manage Students</a>
+            </div>
             <h3>Last Salary Payments</h3>
             <div class="data-table-wrap">
                 <table class="data-table">

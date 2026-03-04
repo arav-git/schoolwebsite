@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Teacher</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-body">
+<main class="auth-layout">
+    <section class="auth-promo">
+        <p class="eyebrow">Admin Controls</p>
+        <h1>Edit Teacher Details</h1>
+        <p>Set custom salary per month and paid amount for each teacher.</p>
+        <a class="btn btn-light" th:href="@{/admin/dashboard}">Back to Dashboard</a>
+    </section>
+
+    <section class="auth-panel">
+        <h2 th:text="'Teacher ID: ' + ${userId}">Teacher</h2>
+
+        <form th:action="@{/admin/teachers/{id}/edit(id=${userId})}" th:object="${form}" method="post" class="auth-form">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+            <label for="fullName">Full Name</label>
+            <input id="fullName" type="text" th:field="*{fullName}">
+            <p class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></p>
+
+            <label for="joiningDate">Joining Date</label>
+            <input id="joiningDate" type="date" th:field="*{joiningDate}">
+            <p class="error" th:if="${#fields.hasErrors('joiningDate')}" th:errors="*{joiningDate}"></p>
+
+            <label for="salaryPerMonth">Salary Per Month</label>
+            <input id="salaryPerMonth" type="number" step="0.01" min="0" th:field="*{salaryPerMonth}">
+
+            <label for="salaryPaid">Salary Paid</label>
+            <input id="salaryPaid" type="number" step="0.01" min="0" th:field="*{salaryPaid}">
+
+            <button type="submit" class="btn">Save Teacher</button>
+        </form>
+    </section>
+</main>
+</body>
+</html>

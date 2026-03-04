@@ -4,13 +4,16 @@ import com.school.schoolwebsite.dto.AdminStudentView;
 import com.school.schoolwebsite.dto.AdminTeacherView;
 import com.school.schoolwebsite.dto.PaymentHistoryView;
 import com.school.schoolwebsite.dto.StudentDashboardView;
+import com.school.schoolwebsite.dto.TeacherStudentView;
 import com.school.schoolwebsite.dto.TeacherDashboardView;
+import com.school.schoolwebsite.entity.SchoolClass;
 import com.school.schoolwebsite.entity.StudentProfile;
 import com.school.schoolwebsite.entity.TeacherProfile;
 import com.school.schoolwebsite.repository.StudentFeePaymentRepository;
 import com.school.schoolwebsite.repository.StudentProfileRepository;
 import com.school.schoolwebsite.repository.TeacherProfileRepository;
 import com.school.schoolwebsite.repository.TeacherSalaryPaymentRepository;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -87,7 +90,7 @@ public class PortalService {
                 profile.getUser().getId(),
                 profile.getUser().getFullName(),
                 profile.getUser().getEmail(),
-                profile.getUser().getJoiningDate(),
+                profile.getUser().getJoiningDate() == null ? LocalDate.now() : profile.getUser().getJoiningDate(),
                 profile.getSchoolClass(),
                 profile.getFeePerMonth(),
                 profile.getFeeRemaining(),
@@ -104,9 +107,22 @@ public class PortalService {
                 profile.getUser().getId(),
                 profile.getUser().getFullName(),
                 profile.getUser().getEmail(),
-                profile.getUser().getJoiningDate(),
+                profile.getUser().getJoiningDate() == null ? LocalDate.now() : profile.getUser().getJoiningDate(),
                 profile.getSalaryPerMonth(),
                 profile.getSalaryPaid()
+            ))
+            .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<TeacherStudentView> getStudentsForTeacherByClass(SchoolClass schoolClass) {
+        return studentProfileRepository.findBySchoolClassOrderByUserFullNameAsc(schoolClass).stream()
+            .map(profile -> new TeacherStudentView(
+                profile.getUser().getId(),
+                profile.getUser().getFullName(),
+                profile.getUser().getEmail(),
+                profile.getUser().getJoiningDate() == null ? LocalDate.now() : profile.getUser().getJoiningDate(),
+                profile.getSchoolClass()
             ))
             .toList();
     }

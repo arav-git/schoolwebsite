@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="site-body">
+<header class="topbar">
+    <div class="wrap topbar-inner">
+        <a class="brand" th:href="@{/portal}">
+            <span class="brand-mark">SW</span>
+            <span class="brand-text" th:text="${viewRole == 'ADMIN'} ? 'Admin Portal' : 'Teacher Portal'">Portal</span>
+        </a>
+        <div class="menu">
+            <a th:if="${viewRole == 'ADMIN'}" th:href="@{/admin/dashboard}">Dashboard</a>
+            <a th:if="${viewRole == 'TEACHER'}" th:href="@{/teacher/dashboard}">Dashboard</a>
+            <a th:if="${viewRole == 'ADMIN'}" th:href="@{/admin/promotions}">Promotions</a>
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="btn btn-small">Logout</button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<main class="section">
+    <div class="wrap">
+        <div class="section-head">
+            <h2>Student Management</h2>
+            <p>Filter by class and set final exam status for yearly promotion workflow.</p>
+            <p class="success" th:if="${param.statusUpdated}">Exam status updated.</p>
+            <p class="success" th:if="${param.studentUpdated}">Student details updated.</p>
+        </div>
+
+        <form method="get" th:attr="action=${actionBase}" class="auth-form" style="max-width: 480px; margin-bottom: 20px; grid-template-columns: 1fr 1fr;">
+            <div>
+                <label for="schoolClass">Class</label>
+                <select id="schoolClass" name="schoolClass">
+                    <option th:each="schoolClass : ${classes}" th:value="${schoolClass}" th:text="${schoolClass}" th:selected="${schoolClass == selectedClass}"></option>
+                </select>
+            </div>
+            <div>
+                <label for="academicYear">Academic Year</label>
+                <input id="academicYear" name="academicYear" type="text" th:value="${academicYear}" required>
+            </div>
+            <button class="btn" type="submit" style="grid-column: 1 / -1;">Apply Filters</button>
+        </form>
+
+        <section class="table-section">
+            <div class="data-table-wrap">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Joining Date</th>
+                        <th>Class</th>
+                        <th>Exam Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${#lists.isEmpty(students)}">
+                        <td colspan="7">No students found for selected class.</td>
+                    </tr>
+                    <tr th:each="student : ${students}">
+                        <td th:text="${student.userId}">1</td>
+                        <td th:text="${student.fullName}">Name</td>
+                        <td th:text="${student.email}">email</td>
+                        <td th:text="${student.joiningDate}">2026-01-01</td>
+                        <td th:text="${student.schoolClass}">CLASS_1</td>
+                        <td>
+                            <form method="post"
+                                  th:action="${viewRole == 'ADMIN'} ? @{/admin/students/{id}/status(id=${student.userId})} : @{/teacher/students/{id}/status(id=${student.userId})}"
+                                  style="display: flex; gap: 8px; align-items: center;">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                <input type="hidden" name="schoolClass" th:value="${selectedClass}">
+                                <input type="hidden" name="academicYear" th:value="${academicYear}">
+                                <select name="examStatus" style="min-width: 110px; min-height: 36px;">
+                                    <option th:each="status : ${examStatuses}" th:value="${status}" th:text="${status}" th:selected="${status == student.examStatus}"></option>
+                                </select>
+                                <button class="btn btn-small" type="submit">Save</button>
+                            </form>
+                        </td>
+                        <td>
+                            <a class="btn btn-small"
+                               th:href="${viewRole == 'ADMIN'} ? @{/admin/students/{id}/edit(id=${student.userId})} : @{/teacher/students/{id}/edit(id=${student.userId})}">Edit</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</main>
+</body>
+</html>
